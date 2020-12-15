@@ -1,0 +1,80 @@
+{
+  "job" : {
+    "content" : [ {
+      "reader" : {
+        "parameter" : {
+          "customSql": "SELECT  COUNT(DISTINCT PERSON_INFO_ID) ITEM_VALUE ,'待诊人数' ITEM_NAME,\nTO_CHAR(TRUNC(SYSDATE),'yyyy-mm-dd') QRY_DATE\nFROM OPR_REGISTRATION WHERE REGISTRATION_DATE>TRUNC(SYSDATE) AND IS_VISIT=2",
+          "column" : [ {
+            "name" : "ITEM_VALUE",
+            "type" : "VARCHAR2",
+            "key" : "ITEM_VALUE"
+          }, {
+            "name" : "ITEM_NAME",
+            "type" : "VARCHAR2",
+            "key" : "ITEM_NAME"
+          }, {
+            "name" : "ORG_CODE",
+            "type" : "VARCHAR2",
+            "key" : "ORG_CODE"
+          }],
+          "password" : "ogg",
+          "username" : "ogg",
+          "connection" : [ {
+            "jdbcUrl" : [ "jdbc:oracle:thin:@10.158.5.84:1521:dbm" ],
+            "table" : [ "OPR_REGISTRATION" ]
+          } ]
+        },
+        "name" : "oraclereader"
+      },
+      "writer" : {
+        "parameter" : {
+          "column" : [ {
+            "name" : "id",
+            "type" : "VARCHAR2",
+            "key" : "id"
+          }, {
+            "name" : "dt",
+            "type" : "VARCHAR2",
+            "key" : "dt"
+          }, {
+            "name" : "valu",
+            "type" : "VARCHAR2",
+            "key" : "valu"
+          }],
+          "username" : "",
+          "password" : "",
+          "connection" : [ {
+            "jdbcUrl" : "jdbc:clickhouse://10.158.2.15:8123/test",
+            "table" : [ "income" ]
+          } ],
+          "writeMode" : "insert",
+          "batchSize": 1024,
+          "preSql": [],
+          "postSql": []
+        },
+        "name" : "clickhousewriter"
+      }
+    } ],
+    "setting": {
+      "speed": {
+        "channel": 1,
+        "bytes": 0
+      },
+      "errorLimit": {
+        "record": 1
+      },
+      "restore": {
+        "maxRowNumForCheckpoint": 0,
+        "isRestore": false,
+        "restoreColumnName": "",
+        "restoreColumnIndex": 0
+      },
+      "log" : {
+        "isLogger": false,
+        "level" : "debug",
+        "path" : "",
+        "pattern":""
+      }
+    }
+  }
+}

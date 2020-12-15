@@ -94,3 +94,23 @@ Please click [Contribution](docs/contribution.md)
 # License
 
 FlinkX is under the Apache 2.0 license. See the [LICENSE](http://www.apache.org/licenses/LICENSE-2.0) file for details.
+
+
+mvn clean package -Dmaven.test.skip=true
+
+
+./bin/flinkx \
+-mode yarn  \
+-job /home/flink/flinkx/jobs/a.json  \
+-pluginRoot /home/flink/flinkx/plugins \
+-flinkconf /home/flink/flink-1.10.2/conf \
+-yarnconf /etc/hadoop/conf.cloudera.yarn  \
+-queue a  
+
+--ok
+./bin/flinkx  -mode local -job /home/flink/flinkx/jobs/a.json -pluginRoot /home/flink/flinkx/plugins/ -flinkconf $FLINK_HOME/conf -yarnconf /etc/hadoop/conf -queue a
+
+
+./bin/flinkx  -mode standalone -job /home/flink/flinkx/jobs/a.json -pluginRoot /home/flink/flinkx/plugins/ -flinkconf $FLINK_HOME/conf -yarnconf /etc/hadoop/conf -queue a
+
+/usr/java/jdk1.8.0_161/bin/java -cp /home/flink/flinkx/lib/* com.dtstack.flinkx.launcher.Launcher -mode local -job /home/flink/flinkx/jobs/a.json -pluginRoot /home/flink/flinkx/plugins/ -flinkconf /home/flink/flink-1.10.2/conf -yarnconf /etc/hadoop/conf -queue a &
